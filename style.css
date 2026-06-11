@@ -1,36 +1,117 @@
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#f4f4f4;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+
+    /* 🌤️ LIGHT PASTEL GRADIENT */
+    background: linear-gradient(-45deg,#db8787,#6794aa,#6e91aa,#fce4ec);
+    background-size:400% 400%;
+    animation: gradientBG 14s ease infinite;
 }
 
+/* Soft animated background movement */
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* LOGIN BOX */
 .login-box{
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-    width:300px;
+    width:350px;
+    padding:35px;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.8);
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    color:#333;
+    z-index:10;
 }
 
 h2{
     text-align:center;
+    margin-bottom:20px;
+    color:#333;
 }
 
 input{
     width:100%;
-    padding:10px;
+    padding:12px;
     margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    background:white;
 }
 
 button{
     width:100%;
-    padding:10px;
-    background:#2563eb;
-    color:white;
+    padding:12px;
+    margin-top:10px;
     border:none;
+    border-radius:10px;
+    background:#4f8cff;
+    color:white;
+    font-weight:bold;
     cursor:pointer;
+    transition:0.3s;
 }
+
+button:hover{
+    transform:scale(1.05);
+    background:#3bd8a6;
+}
+
+/* SHAPES */
+.shape{
+    position:absolute;
+    opacity:0.12;
+    animation: floatUpDown 7s ease-in-out infinite;
+    z-index:0;
+}
+
+/* up-down motion */
+@keyframes floatUpDown{
+    0%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-70px) rotate(180deg);}
+    100%{transform:translateY(0) rotate(360deg);}
+}
+
+/* shapes */
+.circle{
+    width:80px;
+    height:80px;
+    background:#709fc6;
+    border-radius:50%;
+}
+
+.square{
+    width:70px;
+    height:70px;
+    background:#ed7ba1;
+}
+
+.triangle{
+    width:0;
+    height:0;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+    border-bottom:70px solid #a4e5a6;
+}
+
+/* positions */
+.s1{top:10%; left:10%; animation-duration:7s;}
+.s2{top:20%; right:15%; animation-duration:5s;}
+.s3{bottom:10%; left:20%; animation-duration:6s;}
+.s4{bottom:20%; right:10%; animation-duration:8s;}
+.s5{top:50%; left:5%; animation-duration:9s;}
