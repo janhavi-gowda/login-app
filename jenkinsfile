@@ -16,5 +16,17 @@ pipeline {
                 bat 'docker run -d --name login-container -p 8081:80 login-app'
             }
         }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Run Cypress Tests') {
+            steps {
+                bat 'npx cypress run'
+            }
+        }
     }
 }
