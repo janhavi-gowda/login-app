@@ -3,20 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Image') {
-            steps {
-                bat 'docker build -t login-app .'
-            }
-        }
-
-        stage('Deploy Container') {
-            steps {
-                bat 'docker stop login-container || exit 0'
-                bat 'docker rm login-container || exit 0'
-                bat 'docker run -d --name login-container -p 8081:80 login-app'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
@@ -24,9 +10,51 @@ pipeline {
             }
         }
 
+
         stage('Run Cypress Tests') {
             steps {
                 bat 'npx cypress run'
+            }
+        }
+
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+
+                    def scannerHome = tool 'SonarScanner'
+
+                    withSonarQubeEnv('SonarQube') {
+
+                        bat """
+                        ${scannerHome}\\bin\\sonar-scanner.bat ^
+                        -Dsonar.projectKey=login-app ^
+                        -Dsonar.sources=. ^
+                        -Dsonar.host.url=http://localhost:9002
+                        """
+
+                    }
+                }
+            }
+        }
+
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t login-app .'
+            }
+        }
+
+
+        stage('Deploy Container') {
+            steps {
+
+                bat 'docker stop login-container || exit 0'
+
+                bat 'docker rm login-container || exit 0'
+
+                bat 'docker run -d --name login-container -p 8081:80 login-app'
+
             }
         }
     }

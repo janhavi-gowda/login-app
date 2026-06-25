@@ -1,0 +1,13 @@
+# SonarQube files
+.scannerwork/
+.sonar/
+
+# Node modules
+node_modules/
+
+# Cypress files
+cypress/videos/
+cypress/screenshots/
+
+# Environment files
+.env
